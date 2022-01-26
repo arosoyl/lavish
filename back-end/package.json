@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Lavish project",
   "main": "server.js",
+ 
   "scripts": {
-    "beautiful":"prettier --single-quote --trailing-comma all --tab-width 4 --write \"**/*.{js,tsx}\" ",
+    "beautiful": "prettier --single-quote --trailing-comma all --tab-width 4 --write \"**/*.{js,tsx}\" ",
     "startDev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
@@ -12,12 +13,14 @@
   "author": "Soy",
   "license": "ISC",
   "dependencies": {
+    "argon2": "^0.28.3",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.13"
+    "mongoose": "^6.0.13",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "husky": "^7.0.4",

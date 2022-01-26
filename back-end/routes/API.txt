@@ -1,0 +1,48 @@
+- Các API theo người dùng 
+
+api/auth/login -> Đăng nhập POST
+res {
+
+}
+
+api/auth/register -> Đăng ký POST
+
+
+api/user/{id}/password -> Đổi mật khẩu PUT Bearer token
+api/user/{id} -> Đổi thông tin người dùng PUT Bearer token
+
+api/user/event/register -> Đăng ký tham gia sự kiện POST Bearer token
+{
+    "volunteer_id" : ,
+    "organization": ,
+    "event" : ,
+}
+
+api/user/experience/new -> Viết thêm trải nghiệm POST Beaer token Role volunteer
+
+api/user/event/new -> Tạo ra 1 sự kiện Bearer token Role organization
+
+api/user/events -> Lấy danh sách về list sự kiện GET
+api/user/event/{id_event} -> GET Lấy thông tin về 1 sự kiện 
+api/user/event/{id_event} -> POST 
+
+api/user/event/{id_event}/report/new -> POST tạo thông tin về báo cáo Role organization 
+api/user/event/{id_event}/report -> PUT chỉnh sửa báo cáo Role organization
+
+
+api/user/experiences -> Lấy danh sách về list trải nghiệm GET 
+api/user/experience/{id_experience} -> Lấy thông tin về 1 trải nghiệm GET
+
+api/user/experience/{id_experience} -> Lấy thông tin về 1 trải nghiệm GET
+
+
+api/user/volunteers -> Lấy danh sách về list tình nguyện viên GET -> Role Admin 
+api/user/organizations -> Lấy danh sách về list tổ chức tình nguyện GET -> Role Admin
+
+
+
+
+
+
+
+
