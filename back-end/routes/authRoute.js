@@ -1,21 +1,19 @@
-const express = require('express');
+const router = require('express').Router();
 
 const authController = require('../controllers/authController');
-const verifyToken = require('../middlewares/authMiddleware');
+// const verifyToken = require('../middlewares/authMiddleware');
 
-const router = express.Router();
 
-// // router.route('/register').post(register);
-// // router.route('/login').post(login);
+router.get('/',(req,res) => res.send('YEAH'));
 
-// // @route POST api/auth/login
-// // @desc Check if user is logged in
-// // @access Public
-// router.post('/login', authController.login);
+// @route POST api/auth/login
+// @desc Check if user is logged in
+// @access Public
+router.post('/login', authController.login);
 
-// // @route POST api/auth/register
-// // @desc Register user
-// // @access Public
+// @route POST api/auth/register
+// @desc Register user
+// @access Public
 router.post('/register', authController.register);
 
 // // @route DELETE api/auth/logout

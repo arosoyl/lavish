@@ -1,0 +1,40 @@
+POST http://127.0.0.1:3000/api/auth/register
+content-type: application/json
+
+{   "username":"",
+    "password":"12345",
+    "role":"Volunteer",
+    "email":""
+}
+
+###
+POST http://localhost:3000/api/auth/login
+content-type: application/json
+
+{
+    "username":"duong1",
+    "password":"12345"
+    # "username":"duong1",
+    # "password":""
+}
+
+###
+
+GET http://localhost:3000/api/user/
+
+content-type: application/json
+
+{
+    "username":"duong1",
+    "password":"12345"
+}
+
+
+###
+DELETE http://localhost:3000/api/user/61f54d9e652f73ce0004ba01
+content-type: application/json
+
+
+{
+    
+}

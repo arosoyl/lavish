@@ -1,4 +1,0 @@
-exports.ACCESS_TOKEN_LIFE = 432000; // 5 days
-
-exports.ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET;
-

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Lavish project",
   "main": "server.js",
- 
   "scripts": {
     "beautiful": "prettier --single-quote --trailing-comma all --tab-width 4 --write \"**/*.{js,tsx}\" ",
     "startDev": "nodemon server.js",
@@ -13,14 +12,18 @@
   "author": "Soy",
   "license": "ISC",
   "dependencies": {
+    "@vonage/server-sdk": "^2.10.10",
     "argon2": "^0.28.3",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "messagebird": "^3.7.2",
     "mongoose": "^6.0.13",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "nexmo": "^2.9.1",
+    "socket.io": "^4.4.1"
   },
   "devDependencies": {
     "husky": "^7.0.4",
