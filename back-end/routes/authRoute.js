@@ -16,10 +16,24 @@ router.post('/login', authController.login);
 // @access Public
 router.post('/register', authController.register);
 
+router.post('/activation', authController.activateEmail);
+
+// router.post('/verify-phone', authController.activatePhone);
+
+router.post('/check-login', authController.checkLogin);
+
+router.post('/forgot-password', authController.forgotPassword);
+
+router.post('/reset-password', authController.resetPassword);
+
+
 // // @route DELETE api/auth/logout
 // // @desc Log out user
 // // @access Public
-// router.delete('/logout', authController.logout);
+router.delete('/logout', authController.logout);
+
+router.post('/google-login', authController.googleLogin);
+router.post('/facebook-login', authController.facebookLogin);
 
 // // @route GET api/auth/:userId
 // // @desc Get current user

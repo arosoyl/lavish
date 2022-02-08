@@ -1,15 +1,19 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const Nexmo = require('nexmo');
 const socketio = require('socket.io');
 
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 
 const authRoute = require('./routes/authRoute');
 const userRoute = require('./routes/userRoute');
+const uploadRoute = require('./routes/uploadRoute');
 
-require('dotenv').config();
+
 
 const app = express();
 
@@ -20,34 +24,34 @@ const { connectDB } = require('./configs/database');
 connectDB();
 
 
-
-
-
 // Cors
 app.use(cors());
-
-// Body parser
+app.use(cookieParser());
 app.use(express.json());
-//app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(fileUpload({
+    useTempFiles: true
+}))
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
 // Mount the route
 app.use('/api/auth', authRoute);
 app.use('/api/user', userRoute);
-
+app.use('/api/upload', uploadRoute);
+app.use('/api/post', postRoute);
 
 
 //Init Nexmo
-const Vonage = require('@vonage/server-sdk')
+// const Vonage = require('@vonage/server-sdk')
 
-const vonage = new Vonage({
-    apiKey: "38b7b07a",
-    apiSecret: "ecOQ0VLVa14WScDE"
-})
+// const vonage = new Vonage({
+//     apiKey: "38b7b07a",
+//     apiSecret: "ecOQ0VLVa14WScDE"
+// })
 
 
 // app.post('/verify', (req, res) => {

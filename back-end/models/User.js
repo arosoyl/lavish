@@ -25,29 +25,25 @@ const UserSchema = new mongoose.Schema(
       default: false,
     },
     role: {
-        type: String,
+        type: String,  // Volunteer + Org
         required: true,
     },
-    // fullname: {
-    //     type: String,
-    //     required: true
-    // },
-    // gender: {
-    //     type: String,
-    //     required: true,
-    // },
-    // address: {
-    //     type: String,
-    //     required: true
-    // },
-    // phone: {
-    //     type: String,
-    //     required: true
-    // },
-    // avatar: {
-    //     type: String,
-    //     default:""
-    // },
+    fullname: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    avatar: {
+        type: String,
+        default:"https://res.cloudinary.com/ddr1jplps/image/upload/v1644202585/avatar/tteqztgr5kl1wgjcfu8o.jpg"
+    },
   },
   { timestamps: true }
 );

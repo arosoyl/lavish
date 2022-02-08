@@ -1,10 +1,27 @@
 POST http://127.0.0.1:3000/api/auth/register
 content-type: application/json
 
-{   "username":"",
-    "password":"12345",
+{   "username":"dwg14",
+    "password":"123456",
     "role":"Volunteer",
-    "email":""
+    "email":"kimsoneiwillshowyou2@gmail.com",
+    "phone":"+84 857324270"
+}
+###
+POST http://127.0.0.1:3000/api/auth/activation
+content-type: application/json
+
+{   
+    "activation_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJuYW1lIjoiZHdnMTQiLCJlbWFpbCI6ImtpbXNvbmVpd2lsbHNob3d5b3UyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiJGFyZ29uMmkkdj0xOSRtPTQwOTYsdD0zLHA9MSRjYklpL1FIUjl0dThENm9HZHNCUm9RJE5YekMxL05iT0JuMW01OWpVRmwySE1zT3J6bFBnY0lOQ3pqWlZSL1ZHR1UiLCJpc0FkbWluIjpmYWxzZSwicm9sZSI6IlZvbHVudGVlciIsInBob25lIjoiKzg0IDg1NzMyNDI3MCIsImF2YXRhciI6Imh0dHBzOi8vcmVzLmNsb3VkaW5hcnkuY29tL2RkcjFqcGxwcy9pbWFnZS91cGxvYWQvdjE2NDQyMDI1ODUvYXZhdGFyL3R0ZXF6dGdyNWtsMXdnamNmdThvLmpwZyIsIl9pZCI6IjYyMDE1MDVmYzdhY2QwZjVlOTIxMzRhMCJ9LCJpYXQiOjE2NDQyNTMyNzksImV4cCI6MTY0NDI1MzcxMX0.nQiC29Pwo5hJq8WGX7PMii5TWpoU3YsJPPNwQQ3A820"
+}
+###
+POST http://localhost:3000/api/auth/verify-phone
+content-type: application/json
+
+{
+    "username":"duong1",
+    "password":"12345"
+
 }
 
 ###
@@ -14,27 +31,46 @@ content-type: application/json
 {
     "username":"duong1",
     "password":"12345"
-    # "username":"duong1",
-    # "password":""
-}
 
+}
 ###
 
 GET http://localhost:3000/api/user/
-
 content-type: application/json
 
 {
     "username":"duong1",
     "password":"12345"
 }
+###
+POST http://localhost:3000/api/auth/reset-password
+content-type: application/json
 
+{
+    "password":"12345"
+}
+
+###
+POST http://localhost:3000/api/auth/forgot-password
+content-type: application/json
+
+{
+    "email":"duong1"
+}
+###
+
+POST http://localhost:3000/api/upload/upload_avatar
+content-type: file/multipart/form-data
+
+{
+    "file": "attachment_60759885.jpg"
+}
 
 ###
 DELETE http://localhost:3000/api/user/61f54d9e652f73ce0004ba01
 content-type: application/json
 
-
 {
     
 }
+
