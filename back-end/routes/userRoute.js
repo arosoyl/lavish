@@ -1,42 +1,37 @@
 const router = require('express').Router();
 
-const authMiddleware = require('../middlewares/authMiddleware');
+const auth = require('../middlewares/auth');
 const userController = require('../controllers/userController');
 
-// const verifyToken = require('../middlewares/authMiddleware');
-
-// const {
-//     verifyToken,
-//     verifyTokenAndAdmin,
-//     verifyTokenAndUserAuthorization,
-//   } = require("../controllers/verifyToken");
-
-router.get('/:userId', userController.getUserInfor);
+const {
+    verifyToken,
+    verifyTokenAndUserAuthorization,
+    verifyTokenAndOrgAuthorization,
+    verifyTokenAndAdmin,
+} = require('../middlewares/authMiddleware');
 
 // @route PUT api/user/:userId
-// @desc Update user
-// @access Private
-// router.put('/:userId', verifyToken ,userController.updateUser);
-router.put('/update/:userId',userController.updateUser);
-router.put('/:userId',    userController.updateUserRole);
 
-router.get('/admin/allUser', userController.getAllUsers);
+router.get('/:userId', auth , userController.getUserInfor);
 
-// @route DELETE api/user/:userId
-// @desc Delete user
-// @access Private
-// router.delete('/:userId', verifyTokenAndAdmin ,userController.deleteUser);
-router.delete('/admin/:userId', userController.deleteUser);
+router.get('/all-user', auth, authAdmin ,userController.getAllUsers);
+
+router.put('/update/:userId', auth, userController.updateUser); 
+
+router.put('/update-role/:userId', auth, userController.updateUserRole); 
+
+// // router.put('/:userId', verifyToken ,userController.updateUser);
+// router.put('/update/:userId', verifyToken, userController.updateUser);
+
+router.delete('/delete/:userId', auth, authAdmin, userController.deleteUser);
 
 
-// @route GET api/user/search/:userId
-// @desc Get user
-// // @access Public
+
+
+
 // router.get('/search/:userId', verifyToken , userController.searchUser);
 
-// @route GET api/user
-// @desc Get all users
-// @access Private
+
 // router.get('/',authMiddleware.verifyToken, userController.getAllUsers);
 
 module.exports = router;

@@ -5,7 +5,7 @@ const PostSchema = new mongoose.Schema({
     volunteerId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref:'Volunteer',
+        ref: 'User', // User - role 0
     },
     title: {
         type: String,
@@ -20,49 +20,20 @@ const PostSchema = new mongoose.Schema({
         required: true,
     },
     favoriteCount:{
-        type: Number,
+        type: Number, //type: Array, default: [],
         default: 0,   
     },
     createdAt: {
         type: Date,
         default: Date.now,
-      },
-
+    },
+    isDisplay: {
+        type: Boolean,
+        default: true,
+    }
 }, {
     timestamps: true,
 });
 
-model.export = mongoose.model('Post', PostSchema);
+module.exports = mongoose.model("Post", PostSchema);
 
-
-// const mongoose = require('mongoose');
-
-// const ExperienceSchema = new mongoose.Schema({
-
-//     volunteerId: {
-//         type: mongoose.Schema.Types.ObjectId,
-//         required: true,
-//         ref:'Volunteer',
-//     },
-//     title: {
-//         type: String,
-//         required: true,
-//     },
-//     decription: {
-//         type: String,
-//         required: true,
-//     },
-//     content:{
-//         type: String,
-//         required: true,
-//     },
-//     total_favorite:{
-//         type: Number,
-//         default: 0,   
-//     },
-
-// }, {
-//     timestamps: true,
-// });
-
-// model.export = mongoose.model('Experience', ExperienceSchema);

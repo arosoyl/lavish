@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const VolunteerSchema = new mongoose.Schema({
-    volunteerId: {
+    userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref: 'User',
@@ -11,14 +11,14 @@ const VolunteerSchema = new mongoose.Schema({
         required: true,
     },
     birthday: {
-        type: Date,
+        type: String,
         required: true,
     },
 }, {
     timestamps: true,
 });
 
-model.export = mongoose.model('Volunteer', VolunteerSchema);
+module.exports = mongoose.model('Volunteer', VolunteerSchema);
 
 
 
@@ -35,45 +35,6 @@ model.export = mongoose.model('Volunteer', VolunteerSchema);
 // });
 
 // model.export = mongoose.model('Organization', Organizationchema);
-
-
-// const mongoose = require('mongoose');
-
-// const ReportSchema = new mongoose.Schema({
-
-//     organizationId: {
-//         type: mongoose.Schema.Types.ObjectId,
-//         required: true,
-//         ref:'Organization',
-//     },
-//     eventId: {
-//         type: mongoose.Schema.Types.ObjectId,
-//         required: true,
-//         ref:'Event',
-//     },
-//     total_cost: {
-//         type: Number,
-//         required: true,
-//     },
-//     expenses:[
-//         {
-//             activity: {
-//                 type: String,
-//                 required: true,
-//             },
-//             cost: {
-//                 type: Number,
-//                 required: true,
-//             },
-//         },
-//     ],
-// }, {
-//     timestamps: true,
-// });
-
-// model.export = mongoose.model('Report', ReportSchema);
-
-
 
 
 // const mongoose = require('mongoose');
@@ -136,38 +97,6 @@ model.export = mongoose.model('Volunteer', VolunteerSchema);
 
 // model.export = mongoose.model('Event', EventSchema);
 
-
-// const mongoose = require('mongoose');
-
-// const ExperienceSchema = new mongoose.Schema({
-
-//     volunteerId: {
-//         type: mongoose.Schema.Types.ObjectId,
-//         required: true,
-//         ref:'Volunteer',
-//     },
-//     title: {
-//         type: String,
-//         required: true,
-//     },
-//     decription: {
-//         type: String,
-//         required: true,
-//     },
-//     content:{
-//         type: String,
-//         required: true,
-//     },
-//     total_favorite:{
-//         type: Number,
-//         default: 0,   
-//     },
-
-// }, {
-//     timestamps: true,
-// });
-
-// model.export = mongoose.model('Experience', ExperienceSchema);
 
 // const mongoose = required('mongoose');
 

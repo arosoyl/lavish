@@ -1,22 +1,35 @@
 const express = require('express');
+const router = express.Router();
+
+const auth = require('../middlewares/auth')
+const authAdmin = require('../middlewares/authAdmin')
 
 const postsController = require('../controllers/postsController');
 
-const router = express.Router();
 
 
-router.post('/', verifyToken ,experiencesController.createReport);
+router.get('/:postId', auth, postsController.getPost);
+
+router.get('/', postsController.getListPostForUser);
+
+router.get('/list-post', auth, authAdmin, postsController.getListPost);
+
+router.post('/new', auth, postsController.createPost);
+
+router.put('/:postId', auth, postsController.updatePost);
+
+router.delete('/:postId', auth, postsController.deletePostForUser);
+
+router.delete('/:postId', auth, authAdmin, postsController.deletePost);
 
 
-router.put('/:postId', postsController.updateReport);
 
-// @route GET api/experiences/search/:reportId
-// @desc Get experiences
-// @access Public
-router.get('/search/:reportId', verifyToken , experiencesController.getReport);
+//favorite
 
 
-router.delete('/', verifyToken.verifyTokenAndAdmin, experiencesController.deleteExperience);
+router.patch('/:postId/favorite', postsController.favoritePost);
+
+
 
 
 module.exports = router;

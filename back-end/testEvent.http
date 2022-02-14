@@ -1,0 +1,79 @@
+POST http://localhost:3000/api/event/new
+content-type: application/json
+
+{   
+    "orgId" : "6207c7e5d526183ed735353e",
+    "nameEvent" : "nameEvent",
+    "place":"2",
+    "description":"2",
+    "photo":"2",
+    "volunteerId":[],
+    
+    "timelines": [
+        {
+         "name": "56a53ba04ce46bf01ae2bda7",
+         "time": "First condition"             
+        },
+        {
+         "name": "56a53bae4ce46bf01ae2bda8",
+         "time": "Second condition"
+        }
+    ],
+
+    
+
+
+}
+###
+GET http://localhost:3000/api/event/list-event
+content-type: application/json
+
+{
+   
+}
+###
+
+GET http://localhost:3000/api/event/search/6208b2e2e7e76e2aa3e1cd17
+content-type: application/json
+
+
+{
+    "nameEvent":"name"
+}
+
+
+###Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
+PUT http://localhost:3000/api/event/620331d39e83c902e27586b6
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
+
+{
+    "title" : "1",
+    "content":"5",
+    "photo":"7"
+    
+}
+
+
+
+### register event
+POST http://localhost:3000/api/event/620331d39e83c902e27586b6/register
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
+
+{
+    "email":"duong1"
+}
+
+
+
+### DELETE for Admin
+DELETE http://localhost:3000/api/event/6208b4d4e7e76e2aa3e1cd1d
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
+
+{
+    
+}
+
+

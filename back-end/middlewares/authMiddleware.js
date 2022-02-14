@@ -50,8 +50,10 @@ const jwt = require('jsonwebtoken');
 
 const verifyToken = (req, res, next) => {
   //ACCESS TOKEN FROM HEADER, REFRESH TOKEN FROM COOKIE
-  const token = req.headers.token;
-//   const refreshToken = req.cookies.refreshToken;
+  //const token = req.headers.token;
+  // const refreshToken = req.cookies.refreshToken;
+  const token = req.header("Authorization")
+
   if (token) {
     const accessToken = token.split(" ")[1];
     jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
@@ -68,7 +70,17 @@ const verifyToken = (req, res, next) => {
 
 const verifyTokenAndUserAuthorization = (req, res, next) => {
   verifyToken(req, res, () => {
-    if (req.user.id === req.params.id|| req.user.isAdmin) {
+    if (req.user.id === req.params.id|| req.user.isAdmin || req.user.role == 'Volunteer') {
+      next();
+    } else {
+      res.status(403).json("You're not allowed to do that!");
+    }
+  });
+};
+
+const verifyTokenAndOrgAuthorization = (req, res, next) => {
+  verifyToken(req, res, () => {
+    if (req.user.id === req.params.id|| req.user.isAdmin || req.user.role == 'Org') {
       next();
     } else {
       res.status(403).json("You're not allowed to do that!");
@@ -89,5 +101,6 @@ const verifyTokenAndAdmin = (req, res, next) => {
 module.exports = {
   verifyToken,
   verifyTokenAndUserAuthorization,
+  verifyTokenAndOrgAuthorization,
   verifyTokenAndAdmin,
 };

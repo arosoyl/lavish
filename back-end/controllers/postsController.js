@@ -1,22 +1,59 @@
-// const User = require('../models/User');
+const User = require('../models/User');
 
-const Volunteer = require('../')
+const Volunteer = require('../models/Volunteer');
 const Post = require('../models/Post');
 
 
 const postsController = {
 
-    // Register user
-    getListPost: async (req, res) => {
+    getPost: async (req, res) => {
         try {
-            const posts = await Post.find()
+            const post = await Post.find({ _id: req.params.postId, isDisplay: true })
                 .sort({ createdAt: 'desc' })
-                .populate('volunteer', ['username', 'avatar']);
+                .populate('volunteerId', ['username', 'avatar']);
 
+            if (!post) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'Post not found or user is not authorized',
+                });
+            }
+
+            /// post: [] ???
             return res
                 .status(200)
                 .json({
                     success: true,
+                    post
+                });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+
+    getListPostForUser: async (req, res) => {
+        try {
+            const posts = await Post.find({ isDisplay: true })
+            .populate("volunteerId", ['username', 'avatar', 'isActive'])
+                .sort({ createdAt: 'desc' })
+
+            return res
+                .status(200)
+                .json({
+                    posts
+                });
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    },
+    getListPost: async (req, res) => {
+        try {
+            const posts = await Post.find({}).populate("volunteerId", ['username', 'avatar', 'isActive'])
+                .sort({ createdAt: 'desc' })
+
+            return res
+                .status(200)
+                .json({
                     posts
                 });
         } catch (err) {
@@ -26,7 +63,7 @@ const postsController = {
 
     createPost: async (req, res) => {
 
-        const { title, content, photo } = req.body;
+        const { title, content, photo, volunteerId } = req.body;
 
         if (!title || !content) {
             return res
@@ -35,15 +72,12 @@ const postsController = {
         }
 
         try {
-            const volunteer = await Volunteer.findById(req.volunteerId).select('-password');
-
-            // console.log({user});
-
-            const newPost = await new Post({
+            const newPost = new Post({
                 title,
                 content,
                 photo,
-                volunteer
+                volunteerId
+                //user: req.user.id
             });
 
             await newPost.save()
@@ -74,6 +108,7 @@ const postsController = {
         }
 
         try {
+
             let updatedPost = {
                 content,
                 favoriteCount,
@@ -81,11 +116,12 @@ const postsController = {
                 photo
             };
 
-            const updateCondition = { _id: req.params.id, user: req.userId };
+            const updateCondition = { _id: req.params.postId, user: req.userId };
+            // console.log(req.userId);
 
             updatedPost = await Post.findOneAndUpdate(updateCondition, updatedPost, {
                 new: true,
-            });
+            }); // ??? 
 
             if (!updatedPost) {
                 return res.status(401).json({
@@ -107,11 +143,59 @@ const postsController = {
         };
     },
 
-    deletePost: (req, res) => {
+    deletePostForUser: async (req, res) => {
 
         try {
-            const deleteCondition = { _id: req.params.id, user: req.userId };
-            const deletedPost = await Post.findOneAndDelete(deleteCondition);
+
+            const updatedPost = await Post.findByIdAndUpdate(req.params.postId,
+                {
+                    $set: { isDisplay: false }
+                },
+                { new: true })
+
+            if (!updatedPost) {
+                return res.status(401).json({
+                    success: false,
+                    message: 'Post not found or user is not authorized',
+                });
+            }
+            return res
+                .status(200)
+                .json({ success: true, message: 'Post is deleted!', updatedPost });
+
+        } catch (err) {
+            return res
+                .status(500)
+                .json({ message: err.message })
+        }
+
+    },
+
+    deletePost: async (req, res) => {
+
+        // try {
+        //     const deleteCondition = { _id: req.params.id, user: req.userId };
+        //     // const deletedPost = await Post.findOneAndDelete(deleteCondition);
+        //     const deletedPost = await Post.findOneAndDelete(deleteCondition)
+
+        //     if (!deletedPost) {
+        //         return res.status(401).json({
+        //             success: false,
+        //             message: 'Post not found or user is not authorized',
+        //         });
+        //     }
+        //     return res
+        //         .status(200)
+        //         .json({ success: true, message: 'Post is deleted!', deletedPost });
+
+        // } catch (err) {
+        //     return res
+        //         .status(500)
+        //         .json({ message: err.message })
+        // }
+        try {
+
+            const deletedPost = await Post.findByIdAndDelete(req.params.postId);
 
             if (!deletedPost) {
                 return res.status(401).json({
@@ -135,6 +219,7 @@ const postsController = {
         const { favoriteCount } = req.body;
 
         try {
+
             const favoritePost = await Post.findByIdAndUpdate(
                 req.params.id,
                 {

@@ -1,8 +1,13 @@
 const router = require('express').Router();
 
 const authController = require('../controllers/authController');
-const auth = require('../middlewares/auth');
-const authAdmin = require('../middlewares/authAdmin')
+
+
+const {
+    verifyToken,
+    verifyTokenAndAuthorization,
+    verifyTokenAndAdmin,
+} = require('../middlewares/authTest');
 
 
 // api/auth/login
@@ -13,7 +18,7 @@ router.post('/registerTest', authController.testRegister);
 
 router.post('/register', authController.register);
 
-router.post('/activation', authController.activateEmail);
+router.post('/activation',verifytoken, authController.activateEmail);
 
 router.post('/verify-phone', authController.activatePhone);
 
@@ -21,7 +26,7 @@ router.post('/refresh-token', authController.getAccessToken);
 
 router.post('/forgot-password', authController.forgotPassword);
 
-router.put('/reset-password',  authController.resetPassword);
+router.put('/reset-password', authController.resetPassword);
 
 router.delete('/logout', authController.logout);
 

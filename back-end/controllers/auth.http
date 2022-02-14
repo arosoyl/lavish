@@ -1,20 +1,29 @@
 POST http://127.0.0.1:3000/api/auth/registerTest
 content-type: application/json
 
-{   "username":"org15",
+{  
+    "username":"org03",
+    "email":"org03@gmail.com",
     "password":"123456",
-    "role":"1",
-    "email":"org15@gmail.com",
-    "phone":"+84 857324270",
-    "gender": "Nu",
-    "birthday" :"2001-12-31T17",
-    "address" :"1",
-    "fullname" :"DUONG",
-    "legalRepresentative": "user.legalRepresentative",
-    "legalDocument": "user.legalDocument",
-    "bank": "123456789",
-    "avatar" : "1"
+    "role":"Org",
+    "fullname":"fullname",
+    "address":"address",
+    "phone":"+84 857324270"
 }
+
+# "username":"org15",
+#     "password":"123456",
+#     "role":"1",
+#     "email":"org15@gmail.com",
+#     "phone":"+84 857324270",
+#     "gender": "Nu",
+#     "birthday" :"2001-12-31T17",
+#     "address" :"1",
+#     "fullname" :"DUONG",
+#     "legalRepresentative": "user.legalRepresentative",
+#     "legalDocument": "user.legalDocument",
+#     "bank": "123456789",
+#     "avatar" : "1"
 
 # "username":"dwg12",
 #     "password":"123456",
@@ -25,14 +34,25 @@ content-type: application/json
 #     "birthday" :"2001-12-31T17",
 #     "address" :"1",
 #     "fullname" :"DUONG"
+
 ###
 POST http://127.0.0.1:3000/api/auth/register
 content-type: application/json
 
-{   "username":"dwg14",
+
+{   
+    "username":"dwg146",
+    "email":"kimsoneiwillshowyou6@gmail.com",
     "password":"123456",
-    "role":"Volunteer",
-    "email":"kimsoneiwillshowyou2@gmail.com",
+    "role":"Org",
+    "birthday":"25/3/1999",
+    "phone":"+84 857324270",
+
+  
+    
+
+  
+
     "phone":"+84 857324270"
 }
 ###
@@ -40,7 +60,7 @@ POST http://127.0.0.1:3000/api/auth/activation
 content-type: application/json
 
 {   
-    "activation_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MjA0Y2U3ZTgzMmQ0YWFkODhjYmNmNTQiLCJpc0FjdGl2ZSI6dHJ1ZSwicm9sZSI6IkFkbWluIiwiaWF0IjoxNjQ0NjUyNzcwLCJleHAiOjE2NDQ2NTMyMDJ9.KwF2Pqm6xj5SERAiphS-kqTv7oxRHKpyFX9CqRIiFVc"
+    "activation_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGEwZDg4OGZjODZmNzVhMDBhMmNiOSIsImlhdCI6MTY0NDgyNTk5MiwiZXhwIjoxNjQ0ODI2NDI0fQ.3deDg_Hv0lhOl-O5cQuVaIDf3Smw1FUfK_yM6Oyx6V8"
 }
 ###
 POST http://localhost:3000/api/auth/verify-phone
@@ -48,7 +68,7 @@ content-type: application/json
 
 {
     "requestId":"40b21fcf0cc64d43bb8570ad2e40a3a3",
-    "code":"2336"
+    "code":"23gg"
 
 }
 
@@ -57,12 +77,13 @@ POST http://localhost:3000/api/auth/login
 content-type: application/json
 
 {
-    # "username":"duong1",
-    # "password":"12345",
+
+    "username":"org03",
+    "password":"123456"
 
    
-    "username":"admin01",
-    "password":"12345"
+    # # "username":"admin01",
+    # # "password":"12345",
 
     # "username":"duong1",
     # "password":"12345"
@@ -81,7 +102,7 @@ content-type: application/json
 # GET http://localhost:3000/api/user/61f533d5b9b4720bb0913290
 GET http://localhost:3000/api/auth/info
 content-type: application/json
-Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDRhYWQ4OGNiY2Y1NCIsImlhdCI6MTY0NDUxNzkyMywiZXhwIjoxNjQ0NTE4ODIzfQ.Gpf03d0WSxzdb4s1lQcggrErpcmkxNIUqKMms4vt9E8
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDRhYWQ4OGNiY2Y1NCIsImlhdCI6MTY0NDgxMDM5NiwiZXhwIjoxNjQ0ODEwODI4fQ.IEnrRreh0LPkHx_qbZQaQOTlFs0GI-C6vn9HA34F-MQ
 
 {
  
@@ -89,7 +110,7 @@ Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDR
 ### 
 GET http://localhost:3000/api/auth/get-all
 content-type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDRhYWQ4OGNiY2Y1NCIsImlhdCI6MTY0NDUxNzkyMywiZXhwIjoxNjQ0NTE4ODIzfQ.Gpf03d0WSxzdb4s1lQcggrErpcmkxNIUqKMms4vt9E8
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDRhYWQ4OGNiY2Y1NCIsImlhdCI6MTY0NDgxMDM5NiwiZXhwIjoxNjQ0ODEwODI4fQ.IEnrRreh0LPkHx_qbZQaQOTlFs0GI-C6vn9HA34F-MQ
 
 {
  
