@@ -1,21 +1,3 @@
-POST http://127.0.0.1:3000/api/auth/registerTest
-content-type: application/json
-
-{   "username":"org15",
-    "password":"123456",
-    "role":"1",
-    "email":"org15@gmail.com",
-    "phone":"+84 857324270",
-    "gender": "Nu",
-    "birthday" :"2001-12-31T17",
-    "address" :"1",
-    "fullname" :"DUONG",
-    "legalRepresentative": "user.legalRepresentative",
-    "legalDocument": "user.legalDocument",
-    "bank": "123456789",
-    "avatar" : "1"
-}
-
 # "username":"dwg12",
 #     "password":"123456",
 #     "role":"0",

@@ -1,0 +1,94 @@
+POST http://127.0.0.1:3000/api/auth/activation
+content-type: application/json
+
+{   
+    "activation_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMGEwZDg4OGZjODZmNzVhMDBhMmNiOSIsImlhdCI6MTY0NDgyNTk5MiwiZXhwIjoxNjQ0ODI2NDI0fQ.3deDg_Hv0lhOl-O5cQuVaIDf3Smw1FUfK_yM6Oyx6V8"
+}
+###
+POST http://localhost:3000/api/auth/verify-phone
+content-type: application/json
+
+{
+    "requestId":"40b21fcf0cc64d43bb8570ad2e40a3a3",
+    "code":"23gg"
+
+}
+
+###
+POST http://localhost:3000/api/auth/login
+content-type: application/json
+
+{
+
+    "username":"org03",
+    "password":"123456"
+
+   
+    # # "username":"admin01",
+    # # "password":"12345",
+
+    # "username":"duong1",
+    # "password":"12345"
+
+}
+###
+
+POST http://localhost:3000/api/auth/refresh-token
+content-type: application/json
+
+{
+    "refresh_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDRhYWQ4OGNiY2Y1NCIsImlhdCI6MTY0NDUxNzg5NSwiZXhwIjoxNjQ1MTIyNjk1fQ.o1PGERpwUwkTushsPz-ls3b-LYe58jy3_rAannNdNEw"
+}
+###
+
+# GET http://localhost:3000/api/user/61f533d5b9b4720bb0913290
+GET http://localhost:3000/api/user/info
+content-type: application/json
+Authorization:  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDRhYWQ4OGNiY2Y1NCIsImlhdCI6MTY0NDgxMDM5NiwiZXhwIjoxNjQ0ODEwODI4fQ.IEnrRreh0LPkHx_qbZQaQOTlFs0GI-C6vn9HA34F-MQ
+
+{
+ 
+}
+### 
+GET http://localhost:3000/api/user/get-all
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDRhYWQ4OGNiY2Y1NCIsImlhdCI6MTY0NDgxMDM5NiwiZXhwIjoxNjQ0ODEwODI4fQ.IEnrRreh0LPkHx_qbZQaQOTlFs0GI-C6vn9HA34F-MQ
+
+{
+ 
+}
+###
+GET http://localhost:3000/api/user/all-user
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDRjZTdlODMyZDRhYWQ4OGNiY2Y1NCIsImlhdCI6MTY0NDQ5MTU4MCwiZXhwIjoxNjQ0NDkyNDgwfQ.at0MzToGWXhQsUoHdq1nEfSumVrlokONrYbNf7pXEho
+
+{
+   
+}
+
+### 
+PUT http://localhost:3000/api/user/update/620a0d888fc86f75a00a2cb9
+content-type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxZjUzM2Q1YjliNDcyMGJiMDkxMzI5MCIsImlhdCI6MTY0NDQ3MTczOSwiZXhwIjoxNjQ0NDcyNjM5fQ.6qkSuy32pdVInCf4-rhkexLT_GOe5NO-bOAakEXDw-c
+
+{
+    "gender":"Nam",
+    "birthday":"25/4/1990"
+}
+###
+DELETE http://localhost:3000/api/user/6207e1c5e6c80b74834dd511
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
+
+{
+    
+}
+###
+PATCH http://localhost:3000/api/user/620a0d888fc86f75a00a2cb9
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
+
+{
+    
+}
+

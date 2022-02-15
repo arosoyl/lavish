@@ -22,7 +22,9 @@ router.delete('/:postId', auth, postsController.deletePostForUser);
 
 router.delete('/:postId', auth, authAdmin, postsController.deletePost);
 
+// tìm kiếm
 
+router.get('/:postId', auth, postsController.getPost);
 
 //favorite
 

@@ -1,18 +1,17 @@
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
+
 
 const User = require("../models/User");
-const Volunteer = require("../models/Volunteer");
-const Org = require("../models/Org");
 
 const sendMail = require('./sendMail');
-const { sendSMS, verifySMS } = require('./sendSMS');
+const { sendSMS, verifySMS, cancelSMS } = require('./sendSMS');
 
 
 const authController = {
 
-    testRegister: async (req, res) => {
+    // Register user
+    register: async (req, res) => {
 
         try {
             const { username, email, password, role, fullname, phone, address } = req.body
@@ -22,81 +21,13 @@ const authController = {
                     .status(400)
                     .json({ msg: "Please fill in all fields." })
 
+
             if (!validateEmail(email))
                 return res
                     .status(400)
                     .json({ msg: "Invalid emails." })
 
-            const user = await User.findOne({ email })
-            if (user)
-                return res
-                    .status(400)
-                    .json({ msg: "This email already exists." })
 
-            if (password.length < 6)
-                return res
-                    .status(400)
-                    .json({ msg: "Password must be at least 6 characters." })
-
-            const hashedPassword = await argon2.hash(req.body.password);
-
-            const newUser = new User({
-                username,
-                email,
-                password: hashedPassword,
-                role,
-                phone,
-                address,
-                fullname
-            })
-
-            await newUser.save()
-
-            // const activation_token = createActivationToken(newUser)
-
-            // const url = `${process.env.CLIENT_URL}/user/activate/${activation_token}`
-            // sendMail(email, url, "Xác thực tài khoản của bạn")
-
-
-            res.json({ msg: "Register Success! Please activate your email to start." })
-        } catch (err) {
-            return res.status(500).json({ msg: err.message })
-        }
-    },
-
-    // Register user
-    register: async (req, res) => {
-
-        const { username, password, email, role, phone, address, fullname } = req.body;
-
-        if (!validateEmail(email)) {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: 'Invalid email'
-                });
-        }
-
-        if (!username || !password || !role || !phone || !address || !fullname || !email) {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: 'Missing some informations'
-                });
-        }
-
-        if (password.length < 6) {
-            return res
-                .status(400)
-                .json({
-                    success: false,
-                    message: 'Password must be at leasr 6 character'
-                });
-        }
-
-        try {
             const existingUser = await User.findOne({ username });
             if (existingUser) {
                 return res
@@ -106,45 +37,43 @@ const authController = {
                         message: 'Username is already taken'
                     });
             }
+            const existingEmail = await User.findOne({ email });
+            if (existingEmail) {
+                return res
+                    .status(400)
+                    .json({
+                        success: false,
+                        message: 'Email is already taken'
+                    });
+            }
 
-            // const existingEmail = await User.findOne({ email });
-            // if (existingEmail) {
-            //     return res
-            //         .status(400)
-            //         .json({
-            //             success: false,
-            //             message: 'Email is already taken'
-            //         });
-            // }
+            if (password.length < 6)
+                return res
+                    .status(400)
+                    .json({ msg: "Password must be at least 6 characters." })
 
             const hashedPassword = await argon2.hash(req.body.password);
 
-            //Create new user
-            const newUser = await new User({
+            const newUser = {
                 username,
                 email,
                 password: hashedPassword,
                 role,
                 phone,
-                avatar,
-                fullname,
-                address
-            });
+                address,
+                fullname
+            }
 
-            const activate_token = createActivationToken(newUser);
-            // console.log({activate_token});
+            const activation_token = createActivationToken(newUser)
 
-            // //send verification email to user
-            const url = `${process.env.CLIENT_URL}/user/verify-email/${activate_token}`;
-            console.log({ url });
+            console.log(activation_token)
+            const url = `${process.env.CLIENT_URL}/user/activate/${activation_token}`
+            sendMail(email, url, "Xác thực tài khoản của bạn")
 
-            sendMail(email, url, "Xác nhận địa chỉ email của bạn");
 
-            sendSMS(phone);
-
-            res.status(200).json({ message: "Register success! Please activate your email to start." });
+            res.json({ msg: "Register Success! Please activate your email to start." })
         } catch (err) {
-            res.status(500).json(err);
+            return res.status(500).json({ msg: err.message })
         }
     },
 
@@ -156,20 +85,10 @@ const authController = {
             const { activation_token } = req.body;
             const user = jwt.verify(activation_token, process.env.ACTIVATION_TOKEN_SECRET)
 
-            // console.log({user});
+            console.log(user);
             const { username, email, role, password, phone, fullname, avatar, address } = user;
 
             // console.log({username,email,role,password});
-            const existingEmail = await User.findOne({ email });
-
-            if (existingEmail) {
-                return res
-                    .status(400)
-                    .json({
-                        success: false,
-                        message: 'Email is already taken'
-                    });
-            }
 
             const newUser = await new User({
                 username,
@@ -229,19 +148,9 @@ const authController = {
                     });
             }
 
+
+
             const user = await User.findOne({ username });
-
-            if (user.role == 'Org') {
-                if (!user.isAuth)
-                    return res
-                        .status(400)
-                        .json({
-                            success: false,
-                            message: 'Username does not authentication!'
-                        });
-            }
-
-            console.log(user.role)
 
             // User does not exist 
             if (!user) {
@@ -251,6 +160,16 @@ const authController = {
                         success: false,
                         message: 'Username does not exist'
                     });
+            }
+
+            if (user.role == 'Org') {
+                if (!user.isAuth)
+                    return res
+                        .status(400)
+                        .json({
+                            success: false,
+                            message: 'Account does not authentication!'
+                        });
             }
 
             const isPasswordCorrect = await argon2.verify(user.password, password);
