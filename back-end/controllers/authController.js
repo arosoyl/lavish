@@ -14,9 +14,13 @@ const authController = {
     register: async (req, res) => {
 
         try {
-            const { username, email, password, role, fullname, phone, address } = req.body
+            const { username, email, password, role, 
+                // fullname, phone, address 
+            } = req.body
 
-            if (!username || !email || !password || !role || !fullname || !phone || !address)
+            if (!username || !email || !password || !role 
+                // || !fullname || !phone || !address
+                )
                 return res
                     .status(400)
                     .json({ msg: "Please fill in all fields." })
@@ -59,9 +63,9 @@ const authController = {
                 email,
                 password: hashedPassword,
                 role,
-                phone,
-                address,
-                fullname
+                // phone,
+                // address,
+                // fullname
             }
 
             const activation_token = createActivationToken(newUser)
@@ -149,7 +153,6 @@ const authController = {
             }
 
 
-
             const user = await User.findOne({ username });
 
             // User does not exist 
@@ -162,15 +165,15 @@ const authController = {
                     });
             }
 
-            if (user.role == 'Org') {
-                if (!user.isAuth)
-                    return res
-                        .status(400)
-                        .json({
-                            success: false,
-                            message: 'Account does not authentication!'
-                        });
-            }
+            // if (user.role == 'Org') {
+            //     if (!user.isAuth)
+            //         return res
+            //             .status(400)
+            //             .json({
+            //                 success: false,
+            //                 message: 'Account does not authentication!'
+            //             });
+            // }
 
             const isPasswordCorrect = await argon2.verify(user.password, password);
 
@@ -202,7 +205,7 @@ const authController = {
             console.log('error', error);
             res.status(500).json({
                 success: false,
-                message: 'Internal server error'
+                message: error.massage
             });
         };
     },

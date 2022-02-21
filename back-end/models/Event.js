@@ -63,13 +63,6 @@ const EventSchema = new mongoose.Schema({
             ref: 'Report',
         },
     ],
-    donates: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            required: true,
-            ref: 'Donate',
-        },
-    ],
     member: [
         {
             type: mongoose.Schema.Types.ObjectId,

@@ -11,15 +11,10 @@ const OrgSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    // legalRepresentative: {
-    //     type: String,
-    //     required: true,
-    // },
-    // // CMND + CCCD
-    // // legalDocument: {
-    // //     type: String,
-    // //     required: true
-    // // }, // hình chụp giấy phép kinh doanh ???
+    legalRepresentative: {
+        type: String,
+        required: true,
+    },
     // bank: {
     //     type: String,
     //     required: true,

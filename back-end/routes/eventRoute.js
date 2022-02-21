@@ -2,27 +2,20 @@ const express = require('express');
 
 const eventsController = require('../controllers/eventsController');
 
-
 const router = express.Router();
 
-// @route GET api/events
-// @desc Get all events
-// @access Public
-router.get('/list-event', eventsController.getAllEvent);
 
-// @route GET api/events/search/:eventId
-// @desc Get event
-// @access Public
-router.get('/search/:eventId', eventsController.searchEvent);
 
-// @route POST api/events
-// @desc Create new events
-// @access Private
+
 router.post('/new', eventsController.createEvent);
 
-// @route POST api/events/:eventId
-// @desc Update events
-// @access Private
+
+router.get('/list-event', eventsController.getAllEvent);
+
+
+router.get('/search/:eventId', eventsController.searchEvent);
+
+
 router.put('/:eventId',  eventsController.updateEvent);
 
 // @route POST api/events/:eventId/register/:userId

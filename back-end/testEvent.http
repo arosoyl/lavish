@@ -18,14 +18,14 @@ content-type: application/json
          "name": "56a53bae4ce46bf01ae2bda8",
          "time": "Second condition"
         }
-    ],
+    ]
 
     
 
 
 }
 ###
-GET http://localhost:3000/api/event/list-event
+GET http://localhost:5000/api/event/list-event
 content-type: application/json
 
 {

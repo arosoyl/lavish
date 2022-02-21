@@ -1,26 +1,91 @@
 const User = require("../models/User");
 const Volunteer = require("../models/Volunteer");
+const Org = require("../models/Org");
 
 const jwt = require('jsonwebtoken');
 
 
 const userController = {
 
+
+    
+
+
+    search: async (req, res) => {
+
+        try {
+
+            const user = await User.findById({ _id: req.params.id }).select('-password')
+
+            return res.status(200).json({
+                user
+            });
+            // const a = req.params.id;
+            // console.log(user);
+
+            // if (user) {
+
+            //     if (user.role == 'Volunteer') {
+            //         const volunteer = await Volunteer.find({ userId: req.params.id })
+            //             .populate('userId').exec();
+            //         return res.status(200).json({
+            //             volunteer
+            //         });
+            //     }
+            //     console.log('YEah');
+
+            //     if (user.role == 'Org') {
+            //         const org = await Org.findOne({ userId: req.params.userId })
+    
+            //         return res.status(200).json({
+            //             org
+            //         });
+            //     }
+            // }
+            // else {
+            //     return res.status(404).json({
+            //         message: 'User not found'
+            //     });
+            // }
+        }
+        catch (error) {
+            console.log('error', error);
+            return res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    },
+
+    //
+
+    // get a user info
     getUserInfor: async (req, res) => {
 
         try {
-            const user = await User.findById(req.params.userId).select('-password');
-            // const user = await User.findById({
-            //     _id: req.user
-            // })
-            console.log(user);
 
-            // console.log({user,mssg:"rrr"})
+            const user = await User.findById({ _id: req.params.userId }).select('-password');
+
+            if (user.role == 'Volunteer') {
+                const volunteer = await Volunteer.findOne({ userId: req.params.userId })
+                    .populate('userId');
+                return res.status(200).json({
+                    volunteer
+                });
+            }
+
+            if (user.role == 'Org') {
+                const org = await Org.findOne({ userId: req.params.userId })
+                    .populate('userId');
+                return res.status(200).json({
+                    org
+                });
+            }
 
         }
         catch (error) {
             console.log('error', error);
-            res.status(500).json({
+            return res.status(500).json({
                 success: false,
                 message: error.message
             });
@@ -28,14 +93,34 @@ const userController = {
     },
 
     // Get all users
-    getAllUsers: async (req, res) => {
+    getAllUser: async (req, res) => {
 
         try {
             const user = await User.find().select('-password');
-            res.status(200).json(user);
+
+            if (user.role == 'Volunteer') {
+                const volunteer = await Volunteer.findOne({ userId: req.params.userId })
+                    .populate('userId');
+                return res.status(200).json({
+                    volunteer
+                });
+            }
+
+            if (user.role == 'Org') {
+                const org = await Org.findOne({ userId: req.params.userId })
+                    .populate('userId');
+                return res.status(200).json({
+                    org
+                });
+            }
+            // return res.status(200).json(user);
+
+            // const user = await User.find().select('-password');
+            // console.log(user);
+            // res.status(200).json(user);
         } catch (error) {
             console.log('error', error);
-            res.status(500).json({
+            return res.status(500).json({
                 success: false,
                 message: error.message
             });
@@ -46,10 +131,6 @@ const userController = {
         try {
 
             const user = await User.findOne(req.params.usedId);
-
-
-            console.log(user);
-
 
             if (user.role == 'Volunteer') {
                 const newVolunteer = req.body;
@@ -63,16 +144,24 @@ const userController = {
             if (user.role == 'Org') {
                 const newOrg = req.body;
 
-                await Org.findByIdAndUpdate({})
-
+                await Org.findByIdAndUpdate({ userId: user._id }, {
+                    legalRepresentative: newOrg.legalRepresentative,
+                    bank: newOrg.bank,
+                    donate: newOrg.donate,
+                    fund: newOrg.fund,
+                })
             }
-            // const { fullname, address, phone, avatar } = req.body
-            // await User.findOneAndUpdate({ _id: req.params.usedId }, {
-            //     fullname,
-            //     address,
-            //     phone,
-            //     avatar
-            // })
+
+
+            const newUser = req.body;
+
+            await User.findByIdAndUpdate(req.params.userId, {
+                fullname: newUser.fullname,
+                address: newUser.address,
+                phone: newUser.phone,
+                avatar: newUser.avatar
+            }, { new: true });
+
             return res.status(200).json("Update success");
 
         }
@@ -85,14 +174,14 @@ const userController = {
         }
     },
 
-    // cho Org
-    updateUserRole: async (req, res) => {
+    // cho Admin
+    updateAuthOrg: async (req, res) => {
         try {
             const { role } = req.body
 
-            await User.findOneAndUpdate({ _id: req.params.userId }, {
-                role
-            })
+            await Org.findOneAndUpdate({ _id: req.params.userId }, {
+                isAuth: true,
+            }, { new: true });
 
             res.json({ msg: "Update Success!" })
         } catch (err) {

@@ -12,10 +12,10 @@ const fileUpload = require('express-fileupload');
 
 // const userRoute = require('./routes/userRoute');
 const uploadRoute = require('./routes/uploadRoute');
-// const postRoute = require('./routes/postRoute');
+const postRoute = require('./routes/postRoute');
 const authRoute = require('./routes/authRoute');
 const userTest = require('./routes/userTest');
-// const eventRoute = require('./routes/eventRoute');
+const eventRoute = require('./routes/eventRoute');
 
 
 
@@ -46,6 +46,7 @@ app.listen(port, () => {
 app.use('/api/auth', authRoute);
 app.use('/api/user', userTest);
 app.use('/api/upload', uploadRoute);
-// app.use('/api/post', postRoute);
-// app.use('/api/event', eventRoute);
 
+app.use('/api/event', eventRoute);
+
+app.use('/api/post', postRoute);

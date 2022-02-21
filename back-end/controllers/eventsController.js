@@ -11,8 +11,8 @@ const { sendSMS, verifySMS } = require('./sendSMS');
 
 const eventsController = {
 
-
     createEvent: async (req, res) => {
+
         const event = req.body;
         console.log(event)
 
@@ -106,9 +106,9 @@ const eventsController = {
         try {
             const events = await Event.find()
                 .sort({ createdAt: '' })
-                .populate({path: 'orgId', populate: {path: 'userId'}})
-                .populate({path: 'reportId'})
-                .populate('member',['username','avatar'])
+                .populate({ path: 'orgId', populate: { path: 'userId' } })
+                .populate({ path: 'reportId' })
+                .populate('member', ['username', 'avatar'])
 
 
             res.json({
@@ -130,7 +130,7 @@ const eventsController = {
 
         try {
             // _id: req.params.eventId,
-            const event = await Event.find({_id: req.params.eventId})
+            const event = await Event.find({ _id: req.params.eventId })
                 .sort({ createdAt: '' })
                 .populate('orgId', ['userId']);
 
@@ -159,7 +159,7 @@ const eventsController = {
 
     updateEvent: async (req, res) => {
 
-        const event  = req.body;
+        const event = req.body;
 
         try {
 
@@ -202,6 +202,8 @@ const eventsController = {
     },
 
     registerEvent: async (req, res) => {
+
+
 
 
 

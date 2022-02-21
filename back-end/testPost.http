@@ -1,4 +1,4 @@
-POST http://localhost:3000/api/post/new
+POST http://localhost:5000/api/post/new
 content-type: application/json
 
 {   
@@ -7,8 +7,16 @@ content-type: application/json
     "photo":"2",
     "volunteerId": "61f533d5b9b4720bb0913292"
 }
+
 ###
-GET http://localhost:3000/api/post/listPost
+GET http://localhost:5000/api/post
+content-type: application/json
+
+{
+   
+}
+###
+GET http://localhost:5000/api/post/list-blog
 content-type: application/json
 
 {
@@ -16,9 +24,8 @@ content-type: application/json
 }
 ###
 
-GET http://localhost:3000/api/post/6202a6277f26a177be23ebb7
+GET http://localhost:5000/api/post/620331d39e83c902e27586b6
 content-type: application/json
-
 
 {
     
@@ -26,7 +33,7 @@ content-type: application/json
 
 
 ###Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
-PUT http://localhost:3000/api/post/620331d39e83c902e27586b6
+PUT http://localhost:5000/api/post/620331d39e83c902e27586b6
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
 
@@ -40,7 +47,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhM
 
 
 ### favorite
-PATCH http://localhost:3000/api/post/620331d39e83c902e27586b6/favorite
+PATCH http://localhost:5000/api/post/620331d39e83c902e27586b6/favorite
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
 
@@ -51,7 +58,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhM
 
 
 ### DELETE for Admin
-DELETE http://localhost:3000/api/post
+DELETE http://localhost:5000/api/post
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhMGIzMDRhMDM2YmI0ODJhNDk5YmEiLCJpYXQiOjE2MzEzMjc4MDEsImV4cCI6MTYzMTYyNzgwMX0.O7ZAOLqFuppvsQ9AYlsranjCtCsM0q2UziOviZ1iMR0
 
@@ -60,7 +67,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTNhM
 }
 
 ### DELETE for User
-DELETE http://localhost:3000/api/post/6205c7a028d74ab73869f2bd
+DELETE http://localhost:5000/api/post/6205c7a028d74ab73869f2bd
 content-type: application/json
 
 

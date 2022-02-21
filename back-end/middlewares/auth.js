@@ -41,7 +41,7 @@ const auth = (req, res, next) => {
 const authorization = (req, res, next) => {
 
     auth(req, res, () => {
-        if (req.user.userId === req.params.id || req.user.role === 'Admin') {
+        if (req.user.userId === req.params.userId || req.user.role === 'Admin') {
             next();
         }
         else {

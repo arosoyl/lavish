@@ -8,33 +8,47 @@ const postsController = {
 
     getPost: async (req, res) => {
         try {
-            const post = await Post.find({ _id: req.params.postId, isDisplay: true })
-                .sort({ createdAt: 'desc' })
-                .populate('volunteerId', ['username', 'avatar']);
 
-            if (!post) {
-                return res.status(401).json({
-                    success: false,
-                    message: 'Post not found or user is not authorized',
-                });
-            }
+            console.log(req.params.postId);
+            const posts = await Post.findById({ _id: req.params.postId, isDisplay: true })
 
-            /// post: [] ???
             return res
                 .status(200)
                 .json({
-                    success: true,
-                    post
+                    posts
                 });
+
+            // const post = await Post.find({ _id: req.params.postId, isDisplay: true })
+            //     .sort({ createdAt: 'desc' })
+            //     .populate('volunteerId', ['username', 'avatar']);
+
+            // if (!post) {
+            //     return res.status(401).json({
+            //         success: false,
+            //         message: 'Post not found or user is not authorized',
+            //     });
+            // }
+
+
+
+            // /// post: [] ???
+            // return res
+            //     .status(200)
+            //     .json({
+            //         success: true,
+            //         post
+            //     });
         } catch (err) {
             res.status(500).json(err);
         }
     },
 
     getListPostForUser: async (req, res) => {
+        const username = req.query.username;
+
         try {
             const posts = await Post.find({ isDisplay: true })
-            .populate("volunteerId", ['username', 'avatar', 'isActive'])
+                .populate("volunteerId", ['username', 'avatar', 'isActive'])
                 .sort({ createdAt: 'desc' })
 
             return res
@@ -46,10 +60,14 @@ const postsController = {
             res.status(500).json(err);
         }
     },
+
     getListPost: async (req, res) => {
         try {
             const posts = await Post.find({}).populate("volunteerId", ['username', 'avatar', 'isActive'])
                 .sort({ createdAt: 'desc' })
+
+            // const posts = await Post.find()
+
 
             return res
                 .status(200)

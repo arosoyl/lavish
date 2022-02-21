@@ -1,18 +1,21 @@
 const router = require('express').Router();
 
-const {auth, 
-    authorization, 
+const {
+    auth,
+    authorization,
     authAdmin
 } = require('../middlewares/auth');
 
 const userController = require('../controllers/userController');
 
 
-router.get('/:userId', userController.getUserInfor);
 
-router.get('/all-user', authAdmin ,userController.getAllUsers);
 
-router.put('/update/:userId',  userController.updateUser); 
+
+
+
+router.get('/:userId/search/:id', userController.search) // :>> ???
+
 
 
 // // router.put('/:userId', verifyToken ,userController.updateUser);
@@ -20,6 +23,13 @@ router.put('/update/:userId',  userController.updateUser);
 
 
 // done
+router.put('/checkAuth/:userId', authAdmin, userController.updateAuthOrg);
+
+router.get('/all-user',auth, userController.getAllUser);
+
+router.get('/:userId', authorization,userController.getUserInfor);
+
+router.put('/update/:userId', authorization, userController.updateUser);
 
 router.patch('/:userId', authAdmin, userController.banUser);
 
