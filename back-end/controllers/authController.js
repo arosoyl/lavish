@@ -1,11 +1,13 @@
-const argon2 = require('argon2');
-const jwt = require('jsonwebtoken');
+// const argon2 = require('argon2')
+const bcrypt = require('bcrypt')
+
+const jwt = require('jsonwebtoken')
 
 
-const User = require("../models/User");
+const User = require("../models/User")
 
 const sendMail = require('./sendMail');
-const { sendSMS, verifySMS, cancelSMS } = require('./sendSMS');
+const { sendSMS, verifySMS, cancelSMS } = require('./sendSMS')
 
 
 const authController = {
@@ -56,7 +58,9 @@ const authController = {
                     .status(400)
                     .json({ msg: "Password must be at least 6 characters." })
 
-            const hashedPassword = await argon2.hash(req.body.password);
+            // const hashedPassword = await argon2.hash(req.body.password);
+
+            const hashedPassword = await bcrypt.hash(password,12)
 
             const newUser = {
                 username,
@@ -175,7 +179,9 @@ const authController = {
             //             });
             // }
 
-            const isPasswordCorrect = await argon2.verify(user.password, password);
+            // const isPasswordCorrect = await argon2.verify(user.password, password);
+
+            const isPasswordCorrect = await bcrypt.compare(password, user.password)
 
             if (!isPasswordCorrect) {
                 return res
@@ -291,7 +297,9 @@ const authController = {
             const { password } = req.body;
             console.log(password);
 
-            const hashedPassword = await argon2.hash(password);
+            // const  = await argon2.hash(password);
+
+            const hashedPassword = await bcrypt.hash(password, 12)
 
             // console.log(req.user.payload.id);
             const user = await User.findOneAndUpdate({

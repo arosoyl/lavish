@@ -17,7 +17,7 @@ const Incomes = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User', // User - role 1 - ORG
+        ref: 'User', // User - role Volunteer
     },
     amount: {
         type: Number,
@@ -32,7 +32,7 @@ const ReportSchema = new mongoose.Schema({
     orgId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'User', // User - role 1 - ORG
+        ref: 'User', // User - role ORG
     },
     eventId: {
         type: mongoose.Schema.Types.ObjectId,
